@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sajilo_sales/common/custom_formfield.dart';
-
 import '../common/custom_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,6 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    int crossAxisCount = screenWidth < 800 ? 2 : 3;
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -29,67 +31,76 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomFormField(
-                  inputType: TextInputType.text,
-                  textEditingController: textEditingController,
-                  labelText: 'Search'),
+                inputType: TextInputType.text,
+                textEditingController: textEditingController,
+                labelText: 'Search',
+              ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                children: [
-                  CustomCard(
-                    icon: Icons.person,
-                    text: 'Add customer',
-                    onTap: () {
-                      print('Add customer button tapped');
-                    },
-                    isActive: true,
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GridView.builder(
+                  itemCount: 6,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: screenWidth < 800 ? 2 : 5,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 1, // Ensuring the aspect ratio
                   ),
-                  CustomCard(
-                    icon: Icons.shopping_basket,
-                    text: 'Add custom sale',
-                    onTap: () {
-                      print('Add custom sale button tapped');
-                    },
-                    isActive: true,
-                  ),
-                  CustomCard(
-                    icon: Icons.discount,
-                    text: 'Apply discount',
-                    onTap: () {
-                      print('Apply discount button tapped');
-                    },
-                    isActive: false,
-                  ),
-                  CustomCard(
-                    icon: Icons.local_shipping,
-                    text: 'Ship to customer',
-                    onTap: () {
-                      print('Ship to customer button tapped');
-                    },
-                    isActive: false,
-                  ),
-                  CustomCard(
-                    icon: Icons.discount,
-                    text: 'Discount -10%',
-                    onTap: () {
-                      print('Discount -10% button tapped');
-                    },
-                    isActive: false,
-                  ),
-                  CustomCard(
-                    icon: Icons.add,
-                    text: 'Add Items',
-                    onTap: () {
-                      print('Add Items button tapped');
-                    },
-                    isActive: true,
-                  ),
-                ],
+                  itemBuilder: (context, index) {
+                    final List<CustomCard> cards = [
+                      CustomCard(
+                        icon: Icons.person,
+                        text: 'Add customer',
+                        onTap: () {
+                          print('Add customer button tapped');
+                        },
+                        isActive: true,
+                      ),
+                      CustomCard(
+                        icon: Icons.shopping_basket,
+                        text: 'Add custom sale',
+                        onTap: () {
+                          print('Add custom sale button tapped');
+                        },
+                        isActive: true,
+                      ),
+                      CustomCard(
+                        icon: Icons.discount,
+                        text: 'Apply discount',
+                        onTap: () {
+                          print('Apply discount button tapped');
+                        },
+                        isActive: false,
+                      ),
+                      CustomCard(
+                        icon: Icons.local_shipping,
+                        text: 'Ship to customer',
+                        onTap: () {
+                          print('Ship to customer button tapped');
+                        },
+                        isActive: false,
+                      ),
+                      CustomCard(
+                        icon: Icons.discount,
+                        text: 'Discount -10%',
+                        onTap: () {
+                          print('Discount -10% button tapped');
+                        },
+                        isActive: false,
+                      ),
+                      CustomCard(
+                        icon: Icons.add,
+                        text: 'Add Items',
+                        onTap: () {
+                          print('Add Items button tapped');
+                        },
+                        isActive: true,
+                      ),
+                    ];
+                    return cards[index];
+                  },
+                ),
               ),
             ),
           ],

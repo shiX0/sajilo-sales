@@ -18,34 +18,36 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        width: 150,
-        height: 50,
-        decoration: BoxDecoration(
-          color: isActive ? Colors.blue[900] : Colors.grey[800],
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: isActive ? const Color(0xFF313D53) : Colors.transparent,
-            width: 2,
+      child: SizedBox(
+        width: 150, // Fixed width
+        height: 150, // Fixed height
+        child: Container(
+          decoration: BoxDecoration(
+            color: isActive ? Colors.blue[900] : Colors.grey[800],
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: isActive ? const Color(0xFF313D53) : Colors.transparent,
+              width: 2,
+            ),
           ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              color: isActive ? Colors.blue[200] : Colors.grey[500],
-              size: 30,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              text,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                color: isActive ? Colors.blue[200] : Colors.grey[500],
+                size: 30,
               ),
-            ),
-          ],
+              const SizedBox(height: 10),
+              Text(
+                text,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

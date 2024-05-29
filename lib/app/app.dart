@@ -9,6 +9,7 @@ class App extends StatelessWidget {
     final ThemeData darkTheme = ThemeData(
       brightness: Brightness.dark,
       primaryColor: Colors.deepPurple,
+      primaryColorDark: Colors.deepPurple,
       hintColor: Colors.amber,
       scaffoldBackgroundColor: Colors.black,
       // Customize more properties as needed
@@ -16,7 +17,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: darkTheme,
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

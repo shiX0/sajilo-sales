@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sajilo_sales/common/main_button.dart';
+import 'package:sajilo_sales/screens/login_screen.dart';
 
 import '../common/custom_formfield.dart';
 
@@ -86,6 +87,8 @@ class RegisterScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   // Handle navigation to login screen
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
                 },
                 child: const Text(
                   'Login?',
