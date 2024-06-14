@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 ThemeData getApplicationTheme() {
   return ThemeData(
     useMaterial3: false,
-    primaryColor: Colors.amber,
-    primarySwatch: Colors.amber,
+    brightness: Brightness.dark,
+    primaryColor: Colors.deepPurple,
+    primaryColorDark: Colors.deepPurple,
     fontFamily: "Manrope",
-    scaffoldBackgroundColor: Colors.cyan[200],
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-            textStyle:
-                const TextStyle(fontSize: 18, fontFamily: 'Manrope bold'),
-            backgroundColor: Colors.pink[100]!)),
+      textStyle: const TextStyle(fontSize: 18, fontFamily: 'Manrope bold'),
+    )),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.deepPurpleAccent,
       centerTitle: true,
