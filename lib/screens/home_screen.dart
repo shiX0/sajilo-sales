@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sajilo_sales/common/custom_formfield.dart';
-import '../common/custom_card.dart';
+import 'package:sajilo_sales/core/common/custom_formfield.dart';
+import '../core/common/custom_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

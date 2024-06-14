@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sajilo_sales/common/main_button.dart';
+import 'package:sajilo_sales/core/common/main_button.dart';
 import 'package:sajilo_sales/screens/home_screen.dart';
 import 'package:sajilo_sales/screens/register_screen.dart';
 
-import '../common/custom_formfield.dart';
+import '../core/common/custom_formfield.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
