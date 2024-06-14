@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sajilo_sales/screens/splash_screen.dart';
-import 'package:sajilo_sales/theme/theme_data.dart';
+import 'package:sajilo_sales/app/themes/theme_data.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
