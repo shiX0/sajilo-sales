@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sajilo_sales/core/common/main_button.dart';
-import 'package:sajilo_sales/screens/login_screen.dart';
+import 'package:sajilo_sales/features/auth/presentation/widget/main_button.dart';
+import 'package:sajilo_sales/features/auth/domain/entity/auth_entity.dart';
+import 'package:sajilo_sales/features/auth/presentation/viewmodel/auth_view_model.dart';
 
-import '../core/common/custom_formfield.dart';
+import '../widget/custom_formfield.dart';
 
-class RegisterScreen extends StatelessWidget {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class RegisterView extends ConsumerWidget {
+  final _fnameController = TextEditingController(text: 'Shishir');
+  final _lnameController = TextEditingController(text: 'Sharma');
+  final _emailController = TextEditingController(text: 'hello@mail.com');
+  final _passwordController = TextEditingController(text: 'shishir123');
 
-  RegisterScreen({super.key});
+  RegisterView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return Scaffold(
       body: Center(
         child: Padding(
@@ -34,8 +37,8 @@ class RegisterScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               CustomFormField(
-                textEditingController: nameController,
-                labelText: 'Name',
+                textEditingController: _fnameController,
+                labelText: 'First Name',
                 validator: (value) {
                   // Add your validation logic here
                   if (value == null || value.isEmpty) {
@@ -47,7 +50,20 @@ class RegisterScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               CustomFormField(
-                textEditingController: emailController,
+                textEditingController: _lnameController,
+                labelText: 'LastName',
+                validator: (value) {
+                  // Add your validation logic here
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your name';
+                  }
+                  return null;
+                },
+                inputType: TextInputType.name,
+              ),
+              const SizedBox(height: 10),
+              CustomFormField(
+                textEditingController: _emailController,
                 labelText: 'Email',
                 inputType: TextInputType.emailAddress,
                 validator: (value) {
@@ -63,7 +79,7 @@ class RegisterScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               CustomFormField(
-                textEditingController: passwordController,
+                textEditingController: _passwordController,
                 labelText: 'Password',
                 obscure: true,
                 validator: (value) {
@@ -81,15 +97,20 @@ class RegisterScreen extends StatelessWidget {
               const SizedBox(height: 20),
               MainButton(
                 buttonText: "Register",
-                onPressed: () {},
+                onPressed: () {
+                  var user = AuthEntity(
+                      fname: _fnameController.text,
+                      lname: _lnameController.text,
+                      email: _emailController.text,
+                      password: _passwordController.text);
+                  ref
+                      .read(authViewModelProvider.notifier)
+                      .registerStudent(user);
+                },
               ),
               const SizedBox(height: 20),
               GestureDetector(
-                onTap: () {
-                  // Handle navigation to login screen
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()));
-                },
+                onTap: () {},
                 child: const Text(
                   'Login?',
                   style: TextStyle(color: Colors.grey),

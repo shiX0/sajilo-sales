@@ -1,20 +1,24 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sajilo_sales/core/common/main_button.dart';
-import 'package:sajilo_sales/screens/home_screen.dart';
-import 'package:sajilo_sales/screens/register_screen.dart';
+import 'package:sajilo_sales/features/auth/presentation/widget/main_button.dart';
+import 'package:sajilo_sales/features/auth/presentation/state/auth_state.dart';
+import 'package:sajilo_sales/features/auth/presentation/viewmodel/auth_view_model.dart';
+import 'package:sajilo_sales/features/home/presentation/view/home_screen.dart';
 
-import '../core/common/custom_formfield.dart';
+import '../widget/custom_formfield.dart';
 
-class LoginScreen extends StatelessWidget {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
-  LoginScreen({super.key});
+class LoginView extends ConsumerWidget {
+  final TextEditingController emailController =
+      TextEditingController(text: "hello@mail.com");
+  final TextEditingController passwordController =
+      TextEditingController(text: "shishir123");
+  LoginView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -71,8 +75,8 @@ class LoginScreen extends StatelessWidget {
                 MainButton(
                   buttonText: "Login",
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const HomeScreen()));
+                    ref.read(authViewModelProvider.notifier).loginStudent(
+                        emailController.text, passwordController.text);
                   },
                 ),
                 const SizedBox(height: 20),
@@ -81,11 +85,9 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        // Handle navigation to login screen
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegisterScreen()));
+                        ref
+                            .read(authViewModelProvider.notifier)
+                            .openRegisterView();
                       },
                       child: const Text(
                         'Register?',
