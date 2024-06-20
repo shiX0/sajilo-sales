@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 textEditingController: textEditingController,
                 labelText: 'Search',
               ),
-            ),
+            ),  
             Flexible(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
