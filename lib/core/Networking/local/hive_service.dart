@@ -17,7 +17,7 @@ class HiveService {
 
   Future<void> addStudent(AuthHiveModel student) async {
     var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.userBox);
-    await box.put(student.studentId, student);
+    await box.put(student.id, student);
   }
 
   Future<List<AuthHiveModel>> getAllStudents() async {

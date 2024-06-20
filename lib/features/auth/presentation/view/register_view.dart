@@ -10,6 +10,7 @@ import '../widget/custom_formfield.dart';
 class RegisterView extends ConsumerWidget {
   final _fnameController = TextEditingController(text: 'Shishir');
   final _lnameController = TextEditingController(text: 'Sharma');
+  final _address = TextEditingController(text: 'Anamnagar');
   final _emailController = TextEditingController(text: 'hello@mail.com');
   final _passwordController = TextEditingController(text: 'shishir123');
 
@@ -61,6 +62,18 @@ class RegisterView extends ConsumerWidget {
                 },
                 inputType: TextInputType.name,
               ),
+              CustomFormField(
+                textEditingController: _lnameController,
+                labelText: 'Address',
+                validator: (value) {
+                  // Add your validation logic here
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your address';
+                  }
+                  return null;
+                },
+                inputType: TextInputType.text,
+              ),
               const SizedBox(height: 10),
               CustomFormField(
                 textEditingController: _emailController,
@@ -101,6 +114,7 @@ class RegisterView extends ConsumerWidget {
                   var user = AuthEntity(
                       fname: _fnameController.text,
                       lname: _lnameController.text,
+                      address: _address.text,
                       email: _emailController.text,
                       password: _passwordController.text);
                   ref
