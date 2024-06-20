@@ -13,7 +13,7 @@ final authHiveModelProvider = Provider(
 @HiveType(typeId: HiveTableConstant.userTableId)
 class AuthHiveModel {
   @HiveField(0)
-  final String studentId;
+  final String id;
 
   @HiveField(1)
   final String fname;
@@ -22,44 +22,51 @@ class AuthHiveModel {
   final String lname;
 
   @HiveField(3)
+  final String address;
+
+  @HiveField(4)
   final String email;
 
-  @HiveField(7)
+  @HiveField(5)
   final String password;
 
   // Constructor
   AuthHiveModel({
-    String? studentId,
+    String? id,
     required this.fname,
     required this.lname,
+    required this.address,
     required this.email,
     required this.password,
-  }) : studentId = studentId ?? const Uuid().v4();
+  }) : id = id ?? const Uuid().v4();
 
   // empty constructor
   AuthHiveModel.empty()
       : this(
-          studentId: '',
+          id: '',
           fname: '',
           lname: '',
+          address: '',
           email: '',
           password: '',
         );
 
   // Convert Hive Object to Entity
   AuthEntity toEntity() => AuthEntity(
-        id: studentId,
+        id: id,
         fname: fname,
         lname: lname,
+        address: address,
         email: email,
         password: password,
       );
 
   // Convert Entity to Hive Object
   AuthHiveModel toHiveModel(AuthEntity entity) => AuthHiveModel(
-        studentId: const Uuid().v4(),
+        id: const Uuid().v4(),
         fname: entity.fname,
         lname: entity.lname,
+        address: entity.address,
         email: entity.email,
         password: entity.password,
       );
@@ -70,6 +77,6 @@ class AuthHiveModel {
 
   @override
   String toString() {
-    return 'studentId: $studentId, fname: $fname, lname: $lname, email: $email, password: $password';
+    return 'id: $id, fname: $fname, lname: $lname,address: $address, email: $email, password: $password';
   }
 }
