@@ -9,7 +9,7 @@ ThemeData getApplicationTheme() {
     fontFamily: "Manrope",
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-      textStyle: const TextStyle(fontSize: 18, fontFamily: 'Manrope bold'),
+      textStyle: const TextStyle(fontSize: 18, fontFamily: 'Manrope'),
     )),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.deepPurpleAccent,
