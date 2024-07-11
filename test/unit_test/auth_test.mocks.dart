@@ -46,18 +46,18 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
 class MockAuthUseCase extends _i1.Mock implements _i3.AuthUseCase {
   @override
   _i4.Future<_i2.Either<_i5.Failure, bool>> registerAccount(
-          _i6.AuthEntity? student) =>
+          _i6.AuthEntity? user) =>
       (super.noSuchMethod(
         Invocation.method(
           #registerAccount,
-          [student],
+          [user],
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, bool>>.value(
             _FakeEither_0<_i5.Failure, bool>(
           this,
           Invocation.method(
             #registerAccount,
-            [student],
+            [user],
           ),
         )),
         returnValueForMissingStub:
@@ -66,7 +66,7 @@ class MockAuthUseCase extends _i1.Mock implements _i3.AuthUseCase {
           this,
           Invocation.method(
             #registerAccount,
-            [student],
+            [user],
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, bool>>);
