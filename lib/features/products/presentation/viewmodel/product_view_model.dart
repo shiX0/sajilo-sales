@@ -22,7 +22,7 @@ class ProductViewModel extends StateNotifier<ProductState> {
     result.fold(
       (failure) => state = state.copyWith(
         isLoading: false,
-        error: failure.error, // Assuming Failure has a message property
+        error: failure.error,
         hasReachedMax: true,
       ),
       (data) {
