@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sajilo_sales/features/customers/presentation/view/customer_view.dart';
 import 'package:sajilo_sales/features/home/presentation/view/home_screen.dart';
 import 'package:sajilo_sales/features/products/presentation/view/product_view.dart';
 
@@ -16,7 +17,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     const HomeScreen(),
     const Column(),
     const ProductView(),
-    const Column(),
+    const CustomerView(),
     const Column(),
   ];
 
