@@ -19,9 +19,9 @@ class AuthViewModel extends StateNotifier<AuthState> {
   final LoginViewNavigator navigator;
   final RegisterViewNavigator registerViewNavigator;
 
-  Future<void> registerStudent(AuthEntity student) async {
+  Future<void> registerAccount(AuthEntity student) async {
     state = state.copyWith(isLoading: true);
-    var data = await authUseCase.registerStudent(student);
+    var data = await authUseCase.registerAccount(student);
     data.fold(
       (failure) {
         state = state.copyWith(
@@ -32,17 +32,17 @@ class AuthViewModel extends StateNotifier<AuthState> {
       },
       (success) {
         state = state.copyWith(isLoading: false, error: null);
-        showMySnackBar(message: "Successfully registered");
+        // showMySnackBar(message: "Successfully registered");
       },
     );
   }
 
-  Future<void> loginStudent(
+  Future<void> loginAccount(
     String username,
     String password,
   ) async {
     state = state.copyWith(isLoading: true);
-    var data = await authUseCase.loginStudent(username, password);
+    var data = await authUseCase.loginAccount(username, password);
     data.fold(
       (failure) {
         state = state.copyWith(isLoading: false, error: failure.error);
@@ -66,4 +66,6 @@ class AuthViewModel extends StateNotifier<AuthState> {
   void openLoginView() {
     registerViewNavigator.openLoginView();
   }
+
+  loginStudent(String s, String t) {}
 }

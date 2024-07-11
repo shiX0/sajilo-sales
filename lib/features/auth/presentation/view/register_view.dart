@@ -120,7 +120,7 @@ class RegisterView extends ConsumerWidget {
                         password: _passwordController.text);
                     ref
                         .read(authViewModelProvider.notifier)
-                        .registerStudent(user);
+                        .registerAccount(user);
                   },
                 ),
                 const SizedBox(height: 20),
