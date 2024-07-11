@@ -5,7 +5,6 @@ import 'package:sajilo_sales/core/failure/failure.dart';
 import 'package:sajilo_sales/features/auth/data/model/auth_hive_model.dart';
 import 'package:sajilo_sales/features/auth/domain/entity/auth_entity.dart';
 
-
 final authLocalDataSourceProvider = Provider(
   (ref) => AuthLocalDataSource(
     ref.read(hiveServiceProvider),
@@ -33,7 +32,7 @@ class AuthLocalDataSource {
     String password,
   ) async {
     try {
-      AuthHiveModel? students = await _hiveService.login(username, password);
+      AuthHiveModel? account = await _hiveService.login(username, password);
       return const Right(true);
     } catch (e) {
       return Left(Failure(error: e.toString()));
