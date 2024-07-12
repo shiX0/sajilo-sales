@@ -52,6 +52,7 @@ dependencies:
   json_annotation: ^4.9.0
   connectivity_plus: ^4.0.1
   mockito: ^5.4.4
+  all_sensors: ^0.4.2
 
 dev_dependencies:
   flutter_test:
