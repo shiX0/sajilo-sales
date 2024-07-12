@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "67.0.0"
+  all_sensors:
+    dependency: "direct main"
+    description:
+      name: all_sensors
+      sha256: "5de1d20c3fee63d18be29ed27c368143d980e7fc5a805c3903946028816ac375"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.2"
   analyzer:
     dependency: transitive
     description:
@@ -600,6 +608,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  mockito:
+    dependency: "direct main"
+    description:
+      name: mockito
+      sha256: "6841eed20a7befac0ce07df8116c8b8233ed1f4486a7647c7fc5a02ae6163917"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.4.4"
   multi_select_flutter:
     dependency: "direct main"
     description:

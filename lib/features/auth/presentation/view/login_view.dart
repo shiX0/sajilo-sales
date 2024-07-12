@@ -71,7 +71,7 @@ class LoginView extends ConsumerWidget {
                 MainButton(
                   buttonText: "Login",
                   onPressed: () {
-                    ref.read(authViewModelProvider.notifier).loginStudent(
+                    ref.read(authViewModelProvider.notifier).loginAccount(
                         emailController.text, passwordController.text);
                   },
                 ),

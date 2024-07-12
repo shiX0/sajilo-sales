@@ -14,12 +14,12 @@ class AuthRemoteRepository implements IAuthRepository {
 
   AuthRemoteRepository(this._authRemoteDataSource);
   @override
-  Future<Either<Failure, bool>> loginStudent(String email, String password) {
+  Future<Either<Failure, bool>> loginAccount(String email, String password) {
     return _authRemoteDataSource.loginUser(email, password);
   }
 
   @override
-  Future<Either<Failure, bool>> registerStudent(AuthEntity user) {
+  Future<Either<Failure, bool>> registerAccount(AuthEntity user) {
     return _authRemoteDataSource.registerUser(user);
   }
 }

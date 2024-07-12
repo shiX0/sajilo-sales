@@ -9,6 +9,6 @@ final authRepositoryProvider = Provider<IAuthRepository>((ref) {
 });
 
 abstract class IAuthRepository {
-  Future<Either<Failure, bool>> registerStudent(AuthEntity student);
-  Future<Either<Failure, bool>> loginStudent(String email, String password);
+  Future<Either<Failure, bool>> registerAccount(AuthEntity student);
+  Future<Either<Failure, bool>> loginAccount(String email, String password);
 }

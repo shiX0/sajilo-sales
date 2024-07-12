@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 ThemeData getApplicationTheme() {
   return ThemeData(
-    useMaterial3: false,
+    useMaterial3: true,
     brightness: Brightness.dark,
     primaryColor: Colors.deepPurple,
     primaryColorDark: Colors.deepPurple,
