@@ -8,9 +8,9 @@ import '../widget/custom_formfield.dart';
 
 class LoginView extends ConsumerWidget {
   final TextEditingController emailController =
-      TextEditingController(text: "hello@mail.com");
+      TextEditingController(text: "hello@gmail.com");
   final TextEditingController passwordController =
-      TextEditingController(text: "shishir123");
+      TextEditingController(text: "hello");
   LoginView({super.key});
 
   @override
