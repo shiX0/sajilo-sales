@@ -34,4 +34,15 @@ class ProductDataSource {
       return Left(Failure(error: e.message.toString()));
     }
   }
+
+  Future<Either<Failure, String>> deleteProduct(String id) async {
+    try {
+      final response = await _dio
+          .delete(ApiEndpoints.deleteProduct.replaceFirst("{id}", id));
+      return Right(response.data.toString());
+      // Handle unexpected status codes
+    } on DioException catch (e) {
+      return Left(Failure(error: e.message.toString()));
+    }
+  }
 }

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sajilo_sales/app/constants/api_endpoint.dart';
 import 'package:sajilo_sales/features/products/domain/entity/product_entity.dart';
+import 'package:sajilo_sales/features/products/presentation/viewmodel/product_view_model.dart';
 
-class CustomProductTile extends StatelessWidget {
+class CustomProductTile extends ConsumerWidget {
   final ProductEntity product;
-
   const CustomProductTile({super.key, required this.product});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       padding: const EdgeInsets.all(8.0),
       height: 120, // Increased height for the tile
@@ -63,7 +64,7 @@ class CustomProductTile extends StatelessWidget {
                 const SizedBox(
                     height: 8), // Space between the title and subtitle
                 Text(
-                  "Rs.${product.price}",
+                  "रु.${product.price}",
                   style: const TextStyle(
                     fontSize: 14, // Adjusted font size
                     color: Colors.grey, // Optional: subtitle color
@@ -80,7 +81,16 @@ class CustomProductTile extends StatelessWidget {
               ],
             ),
           ),
-          const Icon(Icons.arrow_forward_ios_rounded),
+          IconButton(
+            onPressed: () {
+              // Simplified action for testing
+              debugPrint("IconButton pressed for ${product.name}");
+              ref
+                  .read(productViewModelProvider.notifier)
+                  .openProductDetail(product);
+            },
+            icon: const Icon(Icons.arrow_forward_ios_rounded),
+          ),
         ],
       ),
     );

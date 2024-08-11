@@ -4,24 +4,27 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:sajilo_sales/features/products/domain/entity/product_entity.dart';
-import 'package:sajilo_sales/features/products/domain/usecases/product_usecase.repository.dart';
+import 'package:sajilo_sales/features/products/domain/usecases/product_usecase_repository.dart';
+import 'package:sajilo_sales/features/products/presentation/navigator/product_navigator.dart';
 import 'package:sajilo_sales/features/products/presentation/viewmodel/product_view_model.dart';
 
 import '../test_data/product_test_data.dart';
 import 'product_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<ProductUsecase>()])
+@GenerateNiceMocks([MockSpec<ProductUsecase>(), MockSpec<ProductNavigator>()])
 void main() {
   late ProductUsecase mockProductUsecase;
   late ProviderContainer container;
   late List<ProductEntity> lstProducts;
+  late ProductNavigator productViewRoute;
 
   setUp(() {
     mockProductUsecase = MockProductUsecase();
+    productViewRoute = MockProductNavigator();
     lstProducts = ProductTestData.getProductsTestData();
     container = ProviderContainer(overrides: [
-      productViewModelProvider
-          .overrideWith((ref) => ProductViewModel(mockProductUsecase))
+      productViewModelProvider.overrideWith(
+          (ref) => ProductViewModel(mockProductUsecase, productViewRoute))
     ]);
   });
 
