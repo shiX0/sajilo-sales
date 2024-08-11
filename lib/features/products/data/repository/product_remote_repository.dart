@@ -16,4 +16,9 @@ class ProductRemoteRepository implements IProductRepository {
   Future<Either<Failure, List<ProductEntity>>> getAllProduct(int page) {
     return _productDataSource.getAllProduct(page);
   }
+
+  @override
+  Future<Either<Failure, String>> deleteProduct(String id) {
+    return _productDataSource.deleteProduct(id);
+  }
 }

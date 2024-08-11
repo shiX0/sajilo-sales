@@ -10,4 +10,5 @@ final productRepositoryProvider = Provider<IProductRepository>((ref) {
 
 abstract class IProductRepository {
   Future<Either<Failure, List<ProductEntity>>> getAllProduct(int page);
+  Future<Either<Failure, String>> deleteProduct(String id);
 }

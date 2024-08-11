@@ -16,4 +16,8 @@ class ProductUsecase {
   Future<Either<Failure, List<ProductEntity>>> getAllProduct(int page) {
     return _productRepository.getAllProduct(page);
   }
+
+  Future<Either<Failure, String>> deleteProduct(String id) {
+    return _productRepository.deleteProduct(id);
+  }
 }
