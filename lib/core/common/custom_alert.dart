@@ -8,6 +8,7 @@ class CustomAlertDialog {
     required String title,
     required String message,
     required VoidCallback onConfirm,
+    String? primaryText,
     VoidCallback? onCancel,
   }) {
     showDialog(
@@ -30,7 +31,7 @@ class CustomAlertDialog {
                 Navigator.of(context).pop();
                 onConfirm();
               },
-              child: const Text('Confirm'),
+              child: Text(primaryText ?? "Confirm"),
             ),
           ],
         );
