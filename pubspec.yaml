@@ -53,6 +53,7 @@ dependencies:
   connectivity_plus: ^4.0.1
   mockito: ^5.4.4
   all_sensors: ^0.4.2
+  flutter_barcode_scanner: ^2.0.0
 
 dev_dependencies:
   flutter_test:
