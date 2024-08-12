@@ -4,6 +4,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
+import 'dart:io' as _i7;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -13,7 +14,7 @@ import 'package:sajilo_sales/features/products/domain/entity/product_entity.dart
 import 'package:sajilo_sales/features/products/domain/usecases/product_usecase_repository.dart'
     as _i3;
 import 'package:sajilo_sales/features/products/presentation/navigator/product_navigator.dart'
-    as _i7;
+    as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -69,12 +70,76 @@ class MockProductUsecase extends _i1.Mock implements _i3.ProductUsecase {
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.ProductEntity>>>);
+
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, String>> deleteProduct(String? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteProduct,
+          [id],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, String>>.value(
+            _FakeEither_0<_i5.Failure, String>(
+          this,
+          Invocation.method(
+            #deleteProduct,
+            [id],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i5.Failure, String>>.value(
+                _FakeEither_0<_i5.Failure, String>(
+          this,
+          Invocation.method(
+            #deleteProduct,
+            [id],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, String>>);
+
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, String>> addProduct(
+    _i6.ProductEntity? product,
+    _i7.File? image,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addProduct,
+          [
+            product,
+            image,
+          ],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, String>>.value(
+            _FakeEither_0<_i5.Failure, String>(
+          this,
+          Invocation.method(
+            #addProduct,
+            [
+              product,
+              image,
+            ],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i5.Failure, String>>.value(
+                _FakeEither_0<_i5.Failure, String>(
+          this,
+          Invocation.method(
+            #addProduct,
+            [
+              product,
+              image,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, String>>);
 }
 
 /// A class which mocks [ProductNavigator].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockProductNavigator extends _i1.Mock implements _i7.ProductNavigator {
+class MockProductNavigator extends _i1.Mock implements _i8.ProductNavigator {
   @override
   dynamic openProductDetailView(_i6.ProductEntity? product) =>
       super.noSuchMethod(

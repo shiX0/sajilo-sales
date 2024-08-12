@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sajilo_sales/core/failure/failure.dart';
@@ -11,4 +13,5 @@ final productRepositoryProvider = Provider<IProductRepository>((ref) {
 abstract class IProductRepository {
   Future<Either<Failure, List<ProductEntity>>> getAllProduct(int page);
   Future<Either<Failure, String>> deleteProduct(String id);
+  Future<Either<Failure, String>> addProduct(ProductEntity product, File image);
 }

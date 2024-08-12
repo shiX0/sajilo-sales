@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sajilo_sales/core/failure/failure.dart';
@@ -19,5 +21,9 @@ class ProductUsecase {
 
   Future<Either<Failure, String>> deleteProduct(String id) {
     return _productRepository.deleteProduct(id);
+  }
+
+  Future<Either<Failure, String>> addProduct(ProductEntity product, File image) {
+    return _productRepository.addProduct(product, image);
   }
 }

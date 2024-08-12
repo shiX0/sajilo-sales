@@ -62,12 +62,22 @@ class _ProductViewState extends ConsumerState<ProductView> {
                   labelText: 'Search',
                 ),
               ),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'All Products',
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: () async {
                     await ref
                         .read(productViewModelProvider.notifier)
-                        .getProducts();
+                        .refreshProducts();
                   },
                   child: ListView.separated(
                     separatorBuilder: (context, index) => const Divider(),
@@ -111,6 +121,13 @@ class _ProductViewState extends ConsumerState<ProductView> {
               if (state.isLoading)
                 const CircularProgressIndicator(color: Colors.red),
               const SizedBox(height: 10),
+              ElevatedButton(
+                  onPressed: () {
+                    ref
+                        .read(productViewModelProvider.notifier)
+                        .openAddProductView();
+                  },
+                  child: const Text('Add Product')),
             ],
           ),
         ),

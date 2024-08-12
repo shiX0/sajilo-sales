@@ -45,8 +45,37 @@ class ProductViewModel extends StateNotifier<ProductState> {
     );
   }
 
+  Future<void> refreshProducts() async {
+    if (state.isLoading) return;
+    state = state.copyWith(isLoading: true, products: []);
+    final result = await productUsecase.getAllProduct(1);
+    result.fold(
+      (failure) => state = state.copyWith(
+        isLoading: false,
+        error: failure.error,
+        hasReachedMax: true,
+      ),
+      (data) {
+        if (data.isEmpty) {
+          state = state.copyWith(hasReachedMax: true, isLoading: false);
+        } else {
+          state = state.copyWith(
+            isLoading: false,
+            products: [...state.productList, ...data],
+            page: 1,
+            error: null,
+          );
+        }
+      },
+    );
+  }
+
   void openProductDetail(product) {
     productNavigator.openProductDetailView(product);
+  }
+
+  void openAddProductView() {
+    productNavigator.openProductAdd();
   }
 
   Future<void> deleteProduct(String productId) async {
@@ -79,6 +108,34 @@ class ProductViewModel extends StateNotifier<ProductState> {
           error: null,
           products: updatedProductList,
         );
+      },
+    );
+  }
+
+  Future<void> addProduct(product, image) async {
+    if (state.isLoading) return;
+    state = state.copyWith(isLoading: true);
+    final result = await productUsecase.addProduct(product, image);
+    result.fold(
+      (failure) {
+        // Show error message if addition fails
+        showMySnackBar(
+            message: "Failed to add product: ${failure.error}",
+            color: Colors.red);
+        state = state.copyWith(
+          isLoading: false,
+          error: failure.error,
+        );
+      },
+      (successMessage) {
+        // Show success message if addition is successful
+        showMySnackBar(message: "Product added successfully");
+
+        state = state.copyWith(
+          isLoading: false,
+          error: null,
+        );
+        refreshProducts();
       },
     );
   }

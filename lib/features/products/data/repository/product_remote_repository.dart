@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sajilo_sales/core/failure/failure.dart';
@@ -20,5 +22,11 @@ class ProductRemoteRepository implements IProductRepository {
   @override
   Future<Either<Failure, String>> deleteProduct(String id) {
     return _productDataSource.deleteProduct(id);
+  }
+
+  @override
+  Future<Either<Failure, String>> addProduct(
+      ProductEntity product, File image) {
+    return _productDataSource.addProduct(product, image);
   }
 }

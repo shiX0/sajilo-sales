@@ -59,7 +59,7 @@ void main() {
       // Act
       await container
           .read(authViewModelProvider.notifier)
-          .loginStudent('Shishir', 'Shishir123');
+          .loginAccount('Shishir', 'Shishir123');
       final authState = container.read(authViewModelProvider);
       // Assert
       expect(authState.error, isNull);

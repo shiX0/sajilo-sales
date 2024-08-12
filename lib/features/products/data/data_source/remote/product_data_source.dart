@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,8 +11,9 @@ import 'package:sajilo_sales/features/products/data/model/product_model.dart';
 import 'package:sajilo_sales/features/products/domain/entity/product_entity.dart';
 
 final productDataSourceProvider = Provider<ProductDataSource>((ref) {
-  return ProductDataSource(
-      ref.read(httpServiceProvider), ref.read(productModelProvider));
+  final dio = ref.watch(httpServiceProvider);
+
+  return ProductDataSource(dio, ref.read(productModelProvider));
 });
 
 class ProductDataSource {
@@ -41,6 +44,31 @@ class ProductDataSource {
           .delete(ApiEndpoints.deleteProduct.replaceFirst("{id}", id));
       return Right(response.data.toString());
       // Handle unexpected status codes
+    } on DioException catch (e) {
+      return Left(Failure(error: e.message.toString()));
+    }
+  }
+
+  Future<Either<Failure, String>> addProduct(
+      ProductEntity product, File image) async {
+    // make imageurl into MultipartFile
+    String fileName = image.path.split('/').last;
+    FormData formData = FormData.fromMap({
+      "productImage":
+          await MultipartFile.fromFile(image.path, filename: fileName),
+      "name": product.name,
+      "price": product.price,
+      "description": product.description,
+      "quantity": product.quantity,
+      "sku": product.sku,
+      "qrCode": product.barcode,
+      "category": product.category,
+      "tags": product.tags,
+    });
+    try {
+      final response =
+          await _dio.post(ApiEndpoints.createProduct, data: formData);
+      return Right(response.data.toString());
     } on DioException catch (e) {
       return Left(Failure(error: e.message.toString()));
     }
