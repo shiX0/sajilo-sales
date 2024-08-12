@@ -9,23 +9,27 @@ final connectivityStatusProvider =
 );
 
 class ConnectivityStatusNotifier extends StateNotifier<ConnectivityStatus> {
-  late ConnectivityStatus lastResult;
-  late ConnectivityStatus newState;
+  ConnectivityStatusNotifier() : super(ConnectivityStatus.notDetermined) {
+    // Initial connectivity check
+    _checkInitialConnectivity();
 
-  ConnectivityStatusNotifier() : super(ConnectivityStatus.isConnected) {
-    lastResult = state;
-
+    // Listen for connectivity changes
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      if (result == ConnectivityResult.mobile ||
-          result == ConnectivityResult.wifi) {
-        newState = ConnectivityStatus.isConnected;
-      } else {
-        newState = ConnectivityStatus.isDisconnected;
-      }
-      if (newState != lastResult) {
-        state = newState;
-        lastResult = newState;
-      }
+      _updateState(result);
     });
+  }
+
+  Future<void> _checkInitialConnectivity() async {
+    final result = await Connectivity().checkConnectivity();
+    _updateState(result);
+  }
+
+  void _updateState(ConnectivityResult result) {
+    if (result == ConnectivityResult.mobile ||
+        result == ConnectivityResult.wifi) {
+      state = ConnectivityStatus.isConnected;
+    } else {
+      state = ConnectivityStatus.isDisconnected;
+    }
   }
 }

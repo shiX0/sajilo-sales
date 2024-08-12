@@ -49,13 +49,4 @@ class HttpService {
         'Content-Type': 'application/json',
       };
   }
-
-  // For FormData requests
-  Dio getFormDataDio() {
-    final formDataDio = Dio()
-      ..options = _dio.options
-      ..options.headers['Content-Type'] = 'multipart/form-data'
-      ..interceptors.addAll(_dio.interceptors);
-    return formDataDio;
-  }
 }
