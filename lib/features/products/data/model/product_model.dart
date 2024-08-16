@@ -76,6 +76,22 @@ class ProductModel extends Equatable {
     return productList.map((product) => product.toEntity(product)).toList();
   }
 
+  //  factory from entity
+  factory ProductModel.fromEntity(ProductEntity product) {
+    return ProductModel(
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        category: product.category,
+        imageUrl: product.imageUrl,
+        sku: product.sku,
+        barcode: product.barcode,
+        unit: product.unit,
+        price: product.price,
+        quantity: product.quantity,
+        brand: product.brand,
+        tags: product.tags);
+  }
   @override
   List<Object?> get props => [
         name,

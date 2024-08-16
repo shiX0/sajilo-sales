@@ -53,15 +53,6 @@ class _ProductViewState extends ConsumerState<ProductView> {
         body: SafeArea(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CustomFormField(
-                  icon: const Icon(Icons.search),
-                  inputType: TextInputType.text,
-                  textEditingController: textEditingController,
-                  labelText: 'Search',
-                ),
-              ),
               const Padding(
                 padding: EdgeInsets.all(10.0),
                 child: Align(
@@ -121,13 +112,17 @@ class _ProductViewState extends ConsumerState<ProductView> {
               if (state.isLoading)
                 const CircularProgressIndicator(color: Colors.red),
               const SizedBox(height: 10),
-              ElevatedButton(
-                  onPressed: () {
-                    ref
-                        .read(productViewModelProvider.notifier)
-                        .openAddProductView();
-                  },
-                  child: const Text('Add Product')),
+              SizedBox(
+                height: 50,
+                width: double.infinity,
+                child: ElevatedButton(
+                    onPressed: () {
+                      ref
+                          .read(productViewModelProvider.notifier)
+                          .openAddProductView();
+                    },
+                    child: const Text('Add Product')),
+              ),
             ],
           ),
         ),

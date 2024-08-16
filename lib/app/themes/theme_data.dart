@@ -1,35 +1,25 @@
 import 'package:flutter/material.dart';
 
-ThemeData getApplicationTheme() {
+ThemeData getApplicationTheme(bool isDarkMode) {
   return ThemeData(
     useMaterial3: true,
-    brightness: Brightness.dark,
+    brightness: isDarkMode ? Brightness.dark : Brightness.light,
     primaryColor: Colors.deepPurple,
-    primaryColorDark: Colors.deepPurple,
     fontFamily: "Manrope",
     elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-      textStyle: const TextStyle(fontSize: 18, fontFamily: 'Manrope'),
-    )),
-    appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.deepPurpleAccent,
+      style: ElevatedButton.styleFrom(
+        textStyle: const TextStyle(fontSize: 18, fontFamily: 'Manrope'),
+      ),
+    ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: isDarkMode ? Colors.deepPurpleAccent : Colors.deepPurple,
       centerTitle: true,
-      titleTextStyle: TextStyle(color: Color(0xFFFFFFFF), fontSize: 18),
+      titleTextStyle: const TextStyle(color: Colors.white, fontSize: 18),
     ),
     inputDecorationTheme: const InputDecorationTheme(
       contentPadding: EdgeInsets.all(15),
       border: OutlineInputBorder(),
-      labelStyle: TextStyle(
-        fontSize: 20,
-      ),
-      errorBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.blue,
-        ),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.red),
-      ),
+      labelStyle: TextStyle(fontSize: 20),
     ),
   );
 }

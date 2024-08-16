@@ -67,6 +67,7 @@ class CustomerViewModel extends StateNotifier<CustomerState> {
             customers: data,
             page: 1,
             error: null,
+            hasReachedMax: false,
           );
         }
       },
@@ -89,9 +90,9 @@ class CustomerViewModel extends StateNotifier<CustomerState> {
           isLoading: false,
           error: null,
         );
-        refreshCustomers();
       },
     );
+    refreshCustomers();
   }
 
   Future<void> updateCustomer(CustomerEntity customer) async {
@@ -112,9 +113,9 @@ class CustomerViewModel extends StateNotifier<CustomerState> {
           isLoading: false,
           error: null,
         );
-        refreshCustomers();
       },
     );
+    refreshCustomers();
   }
 
   Future<void> deleteCustomer(String id) async {
@@ -135,8 +136,8 @@ class CustomerViewModel extends StateNotifier<CustomerState> {
           isLoading: false,
           error: null,
         );
-        refreshCustomers();
       },
     );
+    refreshCustomers();
   }
 }

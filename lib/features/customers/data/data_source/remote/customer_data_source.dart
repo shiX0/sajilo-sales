@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sajilo_sales/app/constants/api_endpoint.dart';
 import 'package:sajilo_sales/core/Networking/remote/http_service.dart';
@@ -22,11 +23,17 @@ class CustomerDataSource {
       final Response response = await _dio.get(ApiEndpoints.getAllCustomers,
           queryParameters: {'page': page, 'limit': ApiEndpoints.limit});
       if (response.statusCode == 200) {
-        final customers = customerModel.toEntities(response.data);
+        final List<dynamic> customerJsonList = response.data;
+        if (customerJsonList.isEmpty) {
+          return Left(Failure(error: "No customers found"));
+        }
+        final List<CustomerModel> customers = customerJsonList
+            .map((json) => CustomerModel.fromJson(json))
+            .toList();
         if (customers.isEmpty) {
           return Left(Failure(error: "No customers found"));
         }
-        return Right(customers);
+        return Right(customerModel.toEntities(customers));
       } else if (response.statusCode == 404) {
         return Left(Failure(error: "Customers not found"));
       } else {
@@ -43,7 +50,7 @@ class CustomerDataSource {
     try {
       final response = await _dio.post(
         ApiEndpoints.createCustomer,
-        data: customerModel.fromEntity(customer),
+        data: customerModel.fromEntity(customer).toJson(),
       );
       if (response.statusCode == 201) {
         return const Right(true);
@@ -59,7 +66,7 @@ class CustomerDataSource {
     try {
       final response = await _dio.put(
         ApiEndpoints.updateCustomer.replaceFirst('{id}', customer.id!),
-        data: customerModel.fromEntity(customer),
+        data: customerModel.fromEntity(customer).toJson(),
       );
       if (response.statusCode == 200) {
         return const Right(true);
@@ -75,13 +82,20 @@ class CustomerDataSource {
     try {
       final response = await _dio
           .delete(ApiEndpoints.deleteCustomer.replaceFirst('{id}', id));
-      if (response.statusCode == 204) {
+      if (response.statusCode == 200) {
         return const Right(true);
       } else {
         return Left(Failure(error: 'Failed to delete customer'));
       }
+    } on DioException catch (e) {
+      // Handle Dio exceptions and extract the error message
+      final errorMessage = e.response?.data['error']?.toString() ??
+          'An unexpected error occurred';
+      return Left(Failure(error: errorMessage));
     } catch (e) {
-      return Left(Failure(error: e.toString()));
+      // Handle other types of exceptions
+      return Left(
+          Failure(error: 'An unexpected error occurred: ${e.toString()}'));
     }
   }
 }

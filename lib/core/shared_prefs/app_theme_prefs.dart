@@ -1,36 +1,24 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../failure/failure.dart';
-
-final appThemePrefsProvider = Provider((ref) {
-  return AppThemePrefs();
+// Theme Notifier Provider
+final themeNotifierProvider = StateNotifierProvider<ThemeNotifier, bool>((ref) {
+  return ThemeNotifier();
 });
 
-class AppThemePrefs {
-  late SharedPreferences _sharedPreferences;
-
-  // set theme
-  Future<Either<Failure, bool>> setTheme(bool value) async {
-    try {
-      _sharedPreferences = await SharedPreferences.getInstance();
-      _sharedPreferences.setBool('isDarkTheme', value);
-      return const Right(true);
-    } catch (e) {
-      return Left(Failure(error: e.toString()));
-    }
+class ThemeNotifier extends StateNotifier<bool> {
+  ThemeNotifier() : super(false) {
+    _loadTheme();
   }
 
-  // get theme
-  Future<Either<Failure, bool>> getTheme() async {
-    try {
-      _sharedPreferences = await SharedPreferences.getInstance();
+  Future<void> _loadTheme() async {
+    final prefs = await SharedPreferences.getInstance();
+    state = prefs.getBool('isDarkTheme') ?? false;
+  }
 
-      final isDark = _sharedPreferences.getBool('isDarkTheme') ?? false;
-      return Right(isDark);
-    } catch (e) {
-      return Left(Failure(error: e.toString()));
-    }
+  Future<void> toggleTheme(bool isDark) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isDarkTheme', isDark);
+    state = isDark;
   }
 }

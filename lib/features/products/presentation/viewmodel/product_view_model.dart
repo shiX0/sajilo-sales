@@ -86,9 +86,9 @@ class ProductViewModel extends StateNotifier<ProductState> {
     result.fold(
       (failure) {
         // Show error message if deletion fails
-        showMySnackBar(
-            message: "Failed to delete product: ${failure.error}",
-            color: Colors.red);
+        // showMySnackBar(
+        //     message: "Failed to delete product: ${failure.error}",
+        //     color: Colors.red);
         state = state.copyWith(
           isLoading: false,
           error: failure.error,
@@ -96,7 +96,7 @@ class ProductViewModel extends StateNotifier<ProductState> {
       },
       (successMessage) {
         // Show success message if deletion is successful
-        showMySnackBar(message: "Product deleted successfully");
+        // showMySnackBar(message: "Product deleted successfully");
 
         // Remove the deleted product from the list
         final updatedProductList = state.productList

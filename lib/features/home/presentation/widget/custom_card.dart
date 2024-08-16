@@ -24,7 +24,8 @@ class CustomCard extends StatelessWidget {
         height: 120, // Fixed height
         child: Container(
           decoration: BoxDecoration(
-            color: isActive ? Colors.blue[900] : Colors.grey[800],
+            color:
+                isActive ? Color.fromARGB(80, 187, 148, 246) : Colors.grey[800],
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               color: isActive ? const Color(0xFF313D53) : Colors.transparent,
@@ -39,14 +40,15 @@ class CustomCard extends StatelessWidget {
               children: [
                 Icon(
                   icon,
-                  color: isActive ? Colors.blue[200] : Colors.grey[500],
+                  color: isActive
+                      ? Colors.deepPurpleAccent[400]
+                      : Colors.grey[500],
                   size: 30,
                 ),
                 const SizedBox(height: 30),
                 Text(
                   text,
                   style: const TextStyle(
-                    color: Colors.white,
                     fontSize: 16,
                   ),
                 ),

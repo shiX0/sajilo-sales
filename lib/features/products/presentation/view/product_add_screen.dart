@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:sajilo_sales/core/common/custom_sheet.dart';
 import 'package:sajilo_sales/core/common/custom_snackbar.dart';
 import 'package:sajilo_sales/features/products/domain/entity/product_entity.dart';
 import 'package:sajilo_sales/features/products/presentation/viewmodel/product_view_model.dart';
@@ -97,34 +98,30 @@ class _ProductAddScreenState extends ConsumerState<ProductAddScreen> {
                 // square image container when clicked it will open camera or gallery bottom sheet
                 GestureDetector(
                   onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return SizedBox(
-                          height: 130,
-                          child: Column(
-                            children: [
-                              ListTile(
-                                leading: const Icon(Icons.camera),
-                                title: const Text('Camera'),
-                                onTap: () {
-                                  browseImage(ref, ImageSource.camera);
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              ListTile(
-                                leading: const Icon(Icons.image),
-                                title: const Text('Gallery'),
-                                onTap: () {
-                                  browseImage(ref, ImageSource.gallery);
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
+                    CustomSheet.showBottomSheet(
+                        content: SizedBox(
+                      height: 130,
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: const Icon(Icons.camera),
+                            title: const Text('Camera'),
+                            onTap: () {
+                              browseImage(ref, ImageSource.camera);
+                              Navigator.pop(context);
+                            },
                           ),
-                        );
-                      },
-                    );
+                          ListTile(
+                            leading: const Icon(Icons.image),
+                            title: const Text('Gallery'),
+                            onTap: () {
+                              browseImage(ref, ImageSource.gallery);
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      ),
+                    ));
                   },
                   child: Container(
                     height: 200,
@@ -144,6 +141,7 @@ class _ProductAddScreenState extends ConsumerState<ProductAddScreen> {
                           ),
                   ),
                 ),
+                const SizedBox(height: 10.0),
                 TextFormField(
                   controller: _nameController,
                   decoration: const InputDecoration(
@@ -156,7 +154,7 @@ class _ProductAddScreenState extends ConsumerState<ProductAddScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 10.0),
                 DropdownButtonFormField<String>(
                   decoration: const InputDecoration(
                     labelText: 'Category',
@@ -174,7 +172,7 @@ class _ProductAddScreenState extends ConsumerState<ProductAddScreen> {
                           ))
                       .toList(),
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 10.0),
                 TextFormField(
                   controller: _priceController,
                   decoration: const InputDecoration(
@@ -188,7 +186,7 @@ class _ProductAddScreenState extends ConsumerState<ProductAddScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 10.0),
                 TextFormField(
                   controller: _descriptionController,
                   decoration: const InputDecoration(
@@ -201,7 +199,7 @@ class _ProductAddScreenState extends ConsumerState<ProductAddScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 10.0),
                 TextFormField(
                   controller: _quantityController,
                   decoration: const InputDecoration(
@@ -215,7 +213,7 @@ class _ProductAddScreenState extends ConsumerState<ProductAddScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 10.0),
                 TextFormField(
                   controller: _skuController,
                   decoration: const InputDecoration(
@@ -228,7 +226,7 @@ class _ProductAddScreenState extends ConsumerState<ProductAddScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 10.0),
                 TextFormField(
                   controller: _qrCodeController,
                   decoration: const InputDecoration(
@@ -241,7 +239,7 @@ class _ProductAddScreenState extends ConsumerState<ProductAddScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 10.0),
                 TextFormField(
                   controller: _tagsController,
                   decoration: const InputDecoration(
@@ -254,27 +252,32 @@ class _ProductAddScreenState extends ConsumerState<ProductAddScreen> {
                     return null;
                   },
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      final product = ProductEntity(
-                        name: _nameController.text,
-                        category: _categoryController.text,
-                        price: double.parse(_priceController.text),
-                        description: _descriptionController.text,
-                        quantity: int.parse(_quantityController.text),
-                        sku: _skuController.text,
-                        barcode: _qrCodeController.text,
-                        tags: _tagsController.text.split(','),
-                        imageUrl: "imageurl",
-                      );
-                      // call add product usecase
-                      ref
-                          .read(productViewModelProvider.notifier)
-                          .addProduct(product, img!);
-                    }
-                  },
-                  child: const Text('Save'),
+                const SizedBox(height: 10.0),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        final product = ProductEntity(
+                          name: _nameController.text,
+                          category: _categoryController.text,
+                          price: double.parse(_priceController.text),
+                          description: _descriptionController.text,
+                          quantity: int.parse(_quantityController.text),
+                          sku: _skuController.text,
+                          barcode: _qrCodeController.text,
+                          tags: _tagsController.text.split(','),
+                          imageUrl: "imageurl",
+                        );
+                        // call add product usecase
+                        ref
+                            .read(productViewModelProvider.notifier)
+                            .addProduct(product, img!);
+                      }
+                    },
+                    child: const Text('Save'),
+                  ),
                 ),
               ],
             ),

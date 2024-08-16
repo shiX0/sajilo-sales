@@ -52,6 +52,8 @@ class SplashViewModel extends StateNotifier<SplashState> {
     state = SplashState.loading;
 
     try {
+      // wait for 2 seconds to show the splash screen
+      await Future.delayed(const Duration(seconds: 2));
       final result = await userSharedPrefs.getUserToken();
       if (!mounted) return; // Ensure notifier is still mounted
 
@@ -63,9 +65,13 @@ class SplashViewModel extends StateNotifier<SplashState> {
           }
         },
         (r) {
-          if (mounted) {
+          debugPrint('User token retrieved: $r');
+          if (mounted && r != null) {
             state = SplashState.authenticated;
             navigator.openHomeView();
+          } else {
+            state = SplashState.unauthenticated;
+            navigator.openLoginView();
           }
         },
       );

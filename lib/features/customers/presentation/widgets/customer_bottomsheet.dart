@@ -53,6 +53,11 @@ class _CustomerBottomSheetState extends ConsumerState<CustomerBottomSheet> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Text(
+              widget.customer == null ? 'Add Customer' : 'Edit Customer',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
             TextFormField(
               controller: _nameController,
               decoration: const InputDecoration(
@@ -68,6 +73,7 @@ class _CustomerBottomSheetState extends ConsumerState<CustomerBottomSheet> {
             const SizedBox(height: 16),
             TextFormField(
               controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
                 labelText: 'Email',
               ),
@@ -81,6 +87,7 @@ class _CustomerBottomSheetState extends ConsumerState<CustomerBottomSheet> {
             const SizedBox(height: 16),
             TextFormField(
               controller: _phoneController,
+              keyboardType: TextInputType.phone,
               decoration: const InputDecoration(
                 labelText: 'Phone',
               ),
@@ -124,7 +131,6 @@ class _CustomerBottomSheetState extends ConsumerState<CustomerBottomSheet> {
                         .read(customerViewModelProvider.notifier)
                         .addCustomer(customer);
                   }
-
                   NavigateRoute.pop();
                 }
               },

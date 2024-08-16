@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:all_sensors/all_sensors.dart';
 import 'package:flutter/material.dart';
 import 'package:sajilo_sales/core/common/custom_sheet.dart';
+import 'package:sajilo_sales/features/Settings/presentation/view/settings_view.dart';
 import 'package:sajilo_sales/features/customers/presentation/view/customer_view.dart';
 import 'package:sajilo_sales/features/home/presentation/view/home_screen.dart';
+import 'package:sajilo_sales/features/orders/presentation/view/order_view.dart';
 import 'package:sajilo_sales/features/products/presentation/view/product_view.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -16,20 +20,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
   final List<Widget> _screens = [
     const HomeScreen(),
-    const Column(),
+    const OrderView(),
     const ProductView(),
-    const CustomerView(),
-    const Column(),
+    CustomerView(),
+    const SettingsView(),
   ];
 
   final List<double> _accelerometerValues = [0, 0, 0];
   final double _shakeThreshold = 15.0;
   bool _isModalOpen = false;
+  StreamSubscription<AccelerometerEvent>? _accelerometerSubscription;
 
   @override
   void initState() {
     super.initState();
-    accelerometerEvents!.listen((AccelerometerEvent event) {
+    _accelerometerSubscription =
+        accelerometerEvents!.listen((AccelerometerEvent event) {
       if (!_isModalOpen) {
         setState(() {
           _accelerometerValues[0] = event.x;
@@ -42,6 +48,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
         }
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _accelerometerSubscription?.cancel();
+    super.dispose();
   }
 
   bool _isShakeDetected(AccelerometerEvent event) {

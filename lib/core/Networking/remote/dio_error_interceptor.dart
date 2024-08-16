@@ -13,40 +13,42 @@ class DioErrorInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
+    DioException newError;
+
     if (err.response != null) {
-      _handleResponseError(err);
+      newError = _handleResponseError(err);
     } else {
-      _handleConnectionError(err);
+      newError = _handleConnectionError(err);
     }
 
-    super.onError(err, handler);
+    handler.next(newError);
   }
 
-  void _handleResponseError(DioException err) {
+  DioException _handleResponseError(DioException err) {
     final statusCode = err.response?.statusCode;
-    if (statusCode == null) return;
+    if (statusCode == null) return err;
 
     if (statusCode == 401) {
-      _handleUnauthorizedError(err);
+      return _handleUnauthorizedError(err);
     } else if (statusCode >= 400) {
-      _handleServerError(err);
+      return _handleServerError(err);
     }
+
+    return err;
   }
 
-  void _handleUnauthorizedError(DioException err) {
-    final newErr = DioException(
+  DioException _handleUnauthorizedError(DioException err) {
+    _ref.read(userSharedPrefsProvider).deleteUserToken();
+    return DioException(
       requestOptions: err.requestOptions,
       response: err.response,
       error: 'Unauthorized',
       type: err.type,
     );
-    _ref.read(userSharedPrefsProvider).deleteUserToken();
-    NavigateRoute.popAndPushRoute(LoginView());
-    err = newErr;
   }
 
-  void _handleServerError(DioException err) {
-    final newErr = DioException(
+  DioException _handleServerError(DioException err) {
+    return DioException(
       requestOptions: err.requestOptions,
       response: err.response,
       error: err.response?.data['message'] ??
@@ -54,15 +56,13 @@ class DioErrorInterceptor extends Interceptor {
           'Server error',
       type: err.type,
     );
-    err = newErr;
   }
 
-  void _handleConnectionError(DioException err) {
-    final newErr = DioException(
+  DioException _handleConnectionError(DioException err) {
+    return DioException(
       requestOptions: err.requestOptions,
       error: 'Connection error',
       type: err.type,
     );
-    err = newErr;
   }
 }

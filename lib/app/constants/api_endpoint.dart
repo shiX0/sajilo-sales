@@ -28,7 +28,7 @@ class ApiEndpoints {
   static const String deleteCustomer = "customer/delete/{id}";
 
   // Order
-  static const String getAllOrders = "order/";
+  static const String getAllOrders = "order/mobile/";
   static const String getOrderById = "order/{id}";
   static const String getOrderAnalytics = "order/analytics";
   static const String createOrder = "order/create";

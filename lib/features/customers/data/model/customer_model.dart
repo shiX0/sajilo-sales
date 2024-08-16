@@ -13,6 +13,7 @@ final customerModelProvider =
 class CustomerModel extends Equatable {
   @JsonKey(name: '_id')
   final String? id;
+
   final String name;
   final String email;
   final String phone;
@@ -50,7 +51,7 @@ class CustomerModel extends Equatable {
 
   CustomerModel fromEntity(CustomerEntity customer) {
     return CustomerModel(
-      id: customer.id ?? "",
+      id: customer.id,
       name: customer.name,
       email: customer.email,
       phone: customer.phone,

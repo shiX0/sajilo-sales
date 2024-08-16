@@ -61,7 +61,7 @@ class ProductDataSource {
       "description": product.description,
       "quantity": product.quantity,
       "sku": product.sku,
-      "qrCode": product.barcode,
+      "barcode": product.barcode,
       "category": product.category,
       "tags": product.tags,
     });

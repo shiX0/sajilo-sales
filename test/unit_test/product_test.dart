@@ -47,4 +47,23 @@ void main() {
   tearDown(() {
     container.dispose();
   });
+  // delete product
+  test('Delete product', () async {
+    final product = lstProducts[1];
+    when(mockProductUsecase.deleteProduct(product.id!))
+        .thenAnswer((_) async => const Right("Product deleted"));
+
+    // Delete product
+    await container
+        .read(productViewModelProvider.notifier)
+        .deleteProduct(product.id!);
+
+    // Store the state
+    final productState = container.read(productViewModelProvider);
+
+    // Check the state
+    expect(productState.isLoading, equals(false));
+    expect(productState.error, isNull);
+    expect(productState.productList, equals(lstProducts));
+  });
 }

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sajilo_sales/app/constants/api_endpoint.dart';
 import 'package:sajilo_sales/app/navigator/navigator.dart';
 import 'package:sajilo_sales/core/common/custom_snackbar.dart';
+import 'package:sajilo_sales/features/orders/presentation/viewmodel/order_view_model.dart';
 import 'package:sajilo_sales/features/products/domain/entity/product_entity.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
+class ProductDetailsScreen extends ConsumerWidget {
   final ProductEntity product;
 
   const ProductDetailsScreen({super.key, required this.product});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return Scaffold(
       // appBar: AppBar(
       //   backgroundColor: Colors.transparent,
@@ -75,7 +77,9 @@ class ProductDetailsScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  // TODO: Implement add to cart functionality
+                  ref
+                      .read(orderViewModelProvider.notifier)
+                      .addToCart(product, 1);
                   showMySnackBar(message: "Added to cart");
                 },
                 child: const Text(
